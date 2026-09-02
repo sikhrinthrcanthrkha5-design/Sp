@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>หน้าแรก | SP Furniture Factory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Orbitron:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/cart.css">
+  <link rel="stylesheet" href="css/extras.css">
+  <link rel="stylesheet" href="css/sidebar.css">
+</head>
+<body>
+
+<button type="button" class="sb-mobile-btn" id="sbMobileBtn" aria-label="เมนู">☰</button>
+<div class="sb-overlay" id="sbOverlay"></div>
+<aside class="app-sidebar" id="appSidebar">
+  <div class="sb-top">
+    <a href="index.html" class="sb-logo">
+      <img src="images/logo.png" alt="SP" onerror="this.style.display='none'">
+      <span>SP Furniture</span>
+    </a>
+    <button type="button" class="sb-toggle" id="sbToggle" title="ย่อเมนู">«</button>
+  </div>
+  <div class="sb-profile">
+    <div class="sb-avatar">👤</div>
+    <div class="sb-profile-info">
+      <strong>ลูกค้าทั่วไป</strong>
+      <small>SP Furniture Factory</small>
+    </div>
+  </div>
+  <div class="sb-search">
+    <input type="search" id="sbSearch" placeholder="ค้นหาสินค้า..." autocomplete="off">
+  </div>
+  <div class="sb-section-label">เมนู</div>
+  <nav class="sb-nav">
+    <a class="sb-link" data-page="index.html" href="index.html"><span class="ico">⌂</span><span class="lbl">หน้าแรก</span></a>
+    <a class="sb-link" data-page="products" href="index.html#products"><span class="ico">▣</span><span class="lbl">ผลิตภัณฑ์</span></a>
+    <a class="sb-link" data-page="about" href="index.html#about"><span class="ico">ⓘ</span><span class="lbl">เกี่ยวกับเรา</span></a>
+    <a class="sb-link" data-page="custom.html" href="custom.html"><span class="ico">⚒</span><span class="lbl">สั่งทำตามแบบ</span></a>
+    <a class="sb-link" data-page="my-orders.html" href="my-orders.html"><span class="ico">☰</span><span class="lbl">รายการสั่งทำของฉัน</span></a>
+    <a class="sb-link" data-page="track.html" href="track.html"><span class="ico">◎</span><span class="lbl">ติดตามออเดอร์</span></a>
+    <a class="sb-link" data-page="contact.html" href="contact.html"><span class="ico">✉</span><span class="lbl">ติดต่อ / ใบเสนอราคา</span></a>
+  </nav>
+  <div class="sb-section-label">ทั่วไป</div>
+  <div class="sb-bottom">
+    <button type="button" class="sb-link" onclick="typeof openCart==='function'&&openCart()">
+      <span class="ico">🛒</span><span class="lbl">ตะกร้าสินค้า</span>
+      <span class="badge" id="sbCartBadge" style="display:none">0</span>
+    </button>
+    <a class="sb-link" href="admin.html"><span class="ico">⚙</span><span class="lbl">แอดมิน</span></a>
+  </div>
+</aside>
+
+<section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-badge">โรงงานผลิตเฟอร์นิเจอร์ระดับพรีเมียม</div>
+        <h1>
+          คุณภาพที่เหนือกว่า
+          <span class="highlight">SP Furniture Factory</span>
+        </h1>
+        <p class="hero-desc">
+          เราคือโรงงานผลิตเฟอร์นิเจอร์ครบวงจร ด้วยเทคโนโลยีทันสมัย วัสดุเกรดเอ 
+          และทีมงานมืออาชีพ พร้อมส่งมอบเฟอร์นิเจอร์คุณภาพสูงตรงตามความต้องการของคุณ
+        </p>
+        <div class="hero-buttons">
+          <a href="#products" class="btn btn-primary">ดูผลิตภัณฑ์</a>
+          <a href="contact.html" class="btn btn-outline">ติดต่อเรา</a>
+        </div>
+      </div>
+      <div class="hero-logo-wrap">
+        <div class="hero-logo-ring"></div>
+        <img src="images/logo.png" alt="SP Furniture Factory Logo" class="hero-logo">
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <h3>15+</h3>
+        <p>ปีประสบการณ์</p>
+      </div>
+      <div class="stat-item">
+        <h3>5,000+</h3>
+        <p>โครงการสำเร็จ</p>
+      </div>
+      <div class="stat-item">
+        <h3>200+</h3>
+        <p>พนักงานมืออาชีพ</p>
+      </div>
+      <div class="stat-item">
+        <h3>100%</h3>
+        <p>ความพึงพอใจ</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <section class="about" id="about">
+    <div class="section-header">
+      <div class="section-label">About Us</div>
+      <h2 class="section-title metal-text">เกี่ยวกับ SP Furniture Factory</h2>
+      <p class="section-desc">โรงงานผลิตเฟอร์นิเจอร์ที่ให้ความสำคัญกับคุณภาพ ความสวยงาม และความทนทานในทุกชิ้นงาน</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-content">
+        <h3>มาตรฐานโรงงานระดับสากล</h3>
+        <p>
+          SP Furniture Factory ก่อตั้งขึ้นด้วยวิสัยทัศน์ที่จะเป็นผู้นำด้านอุตสาหกรรมการผลิตเฟอร์นิเจอร์ในประเทศไทย 
+          เราใช้เครื่องจักรและเทคโนโลยีที่ทันสมัยที่สุด พร้อมระบบควบคุมคุณภาพทุกขั้นตอน
+        </p>
+        <p>
+          ไม่ว่าจะเป็นเฟอร์นิเจอร์บ้าน โรงแรม ออฟฟิศ หรือโครงการพิเศษ 
+          เราพร้อมออกแบบและผลิตตามความต้องการเฉพาะของคุณ
+        </p>
+        <div class="about-features">
+          <div class="feature-item">
+            <div class="feature-icon">🏭</div>
+            <div>
+              <h4>โรงงานครบวงจร</h4>
+              <p>ผลิตเองทุกขั้นตอน</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">✨</div>
+            <div>
+              <h4>วัสดุเกรดเอ</h4>
+              <p>คัดสรรคุณภาพสูงสุด</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🎨</div>
+            <div>
+              <h4>ดีไซน์ทันสมัย</h4>
+              <p>ทีมออกแบบมืออาชีพ</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🛡️</div>
+            <div>
+              <h4>รับประกันคุณภาพ</h4>
+              <p>บริการหลังการขาย</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="about-card">
+          <div class="about-card-title">กระบวนการผลิต</div>
+          <ul class="process-list">
+            <li>
+              <span class="process-num">01</span>
+              <div>
+                <strong>รับแบบ & ปรึกษา</strong><br>
+                <small style="color:#888">วิเคราะห์ความต้องการและออกแบบ</small>
+              </div>
+            </li>
+            <li>
+              <span class="process-num">02</span>
+              <div>
+                <strong>คัดเลือกวัสดุ</strong><br>
+                <small style="color:#888">วัสดุคุณภาพสูงตามมาตรฐาน</small>
+              </div>
+            </li>
+            <li>
+              <span class="process-num">03</span>
+              <div>
+                <strong>ผลิต & ประกอบ</strong><br>
+                <small style="color:#888">เครื่องจักรแม่นยำ ฝีมือช่าง</small>
+              </div>
+            </li>
+            <li>
+              <span class="process-num">04</span>
+              <div>
+                <strong>QC & ส่งมอบ</strong><br>
+                <small style="color:#888">ตรวจสอบคุณภาพทุกชิ้น</small>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="products" id="products">
+    <div class="section-header">
+      <div class="section-label">Our Products</div>
+      <h2 class="section-title metal-text">ผลิตภัณฑ์ของเรา</h2>
+      <p class="section-desc">เฟอร์นิเจอร์คุณภาพสูง แยกตามหมวดหมู่ พร้อมรูปภาพจริงจากโรงงาน</p>
+    </div>
+
+
+    <div class="product-search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="search" id="productSearch" placeholder="ค้นหาสินค้า เช่น โซฟา, ตู้เสื้อผ้า, โต๊ะ..." 
+             oninput="onProductSearch(this.value)" autocomplete="off">
+      <button type="button" class="search-clear" id="searchClear" onclick="clearProductSearch()" aria-label="ล้าง">✕</button>
+    </div>
+
+    <!-- Category Filter -->
+    <div class="category-filter">
+      <button class="cat-btn active" data-cat="all" onclick="filterProducts('all')">ทั้งหมด</button>
+      <button class="cat-btn" data-cat="sofa" onclick="filterProducts('sofa')">โซฟาและที่นั่ง</button>
+      <button class="cat-btn" data-cat="bed" onclick="filterProducts('bed')">เตียงและห้องนอน</button>
+      <button class="cat-btn" data-cat="table" onclick="filterProducts('table')">โต๊ะ</button>
+      <button class="cat-btn" data-cat="chair" onclick="filterProducts('chair')">เก้าอี้</button>
+      <button class="cat-btn" data-cat="storage" onclick="filterProducts('storage')">ตู้และชั้นวาง</button>
+      <button class="cat-btn" data-cat="shelf" onclick="filterProducts('shelf')">ชั้นหนังสือ</button>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="products-grid" id="productsGrid">
+      <!-- Rendered by JS -->
+    </div>
+    <div class="no-products" id="noProducts">ไม่พบสินค้าในหมวดนี้</div>
+  </section>
+
+  <!-- Services -->
+  <section class="services" id="services">
+    <div class="section-header">
+      <div class="section-label">Services</div>
+      <h2 class="section-title metal-text">บริการของเรา</h2>
+      <p class="section-desc">บริการครบวงจรตั้งแต่การออกแบบจนถึงการติดตั้ง</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">📐</div>
+        <h3>ออกแบบ & ปรึกษา</h3>
+        <p>ทีมดีไซเนอร์มืออาชีพพร้อมให้คำปรึกษาและออกแบบเฟอร์นิเจอร์ให้เหมาะกับพื้นที่และสไตล์ของคุณ</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">⚙️</div>
+        <h3>ผลิตตามสั่ง</h3>
+        <p>ผลิตเฟอร์นิเจอร์ตามแบบและสเปคที่กำหนด ด้วยเครื่องจักรที่ทันสมัยและฝีมือช่างที่มีประสบการณ์</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🚚</div>
+        <h3>จัดส่ง & ติดตั้ง</h3>
+        <p>บริการจัดส่งและติดตั้งถึงที่ โดยทีมงานมืออาชีพ พร้อมรับประกันความเรียบร้อย</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <h2 class="metal-text">พร้อมเริ่มโปรเจกต์ของคุณแล้วหรือยัง?</h2>
+    <p>ติดต่อเราวันนี้เพื่อรับคำปรึกษาฟรี และใบเสนอราคาพิเศษสำหรับโครงการของคุณ</p>
+    <a href="contact.html" class="btn btn-primary">ขอใบเสนอราคาฟรี</a>
+  </section>
+
+
+
+  
+
+<footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo-link">
+          <img src="images/logo.png" alt="SP Furniture Factory" class="logo-img">
+          <div class="logo-text">
+            SP Furniture
+            <span>FACTORY</span>
+          </div>
+        </a>
+        <p>โรงงานผลิตเฟอร์นิเจอร์คุณภาพสูง มาตรฐานระดับสากล พร้อมส่งมอบความพึงพอใจในทุกชิ้นงาน</p>
+      </div>
+      <div class="footer-col">
+        <h4>เมนู</h4>
+        <ul>
+          <li><a href="index.html#about">เกี่ยวกับเรา</a></li>
+          <li><a href="index.html#products">ผลิตภัณฑ์</a></li>
+          <li><a href="#services">บริการ</a></li>
+          <li><a href="custom.html">สั่งทำตามแบบ</a></li>
+        <li><a href="my-orders.html">รายการสั่งทำของฉัน</a></li>
+        <li><a href="track.html">ติดตามออเดอร์</a></li>
+        <li><a href="contact.html">ติดต่อเรา</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>ผลิตภัณฑ์</h4>
+        <ul>
+          <li><a href="index.html#products" onclick="filterProducts('sofa')">โซฟาและที่นั่ง</a></li>
+          <li><a href="index.html#products" onclick="filterProducts('bed')">เตียงและห้องนอน</a></li>
+          <li><a href="index.html#products" onclick="filterProducts('table')">โต๊ะ</a></li>
+          <li><a href="index.html#products" onclick="filterProducts('storage')">ตู้และชั้นวาง</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>ติดต่อ</h4>
+        <ul>
+          <li><a href="tel:02XXXXXXX">02-XXX-XXXX</a></li>
+          <li><a href="mailto:info@spfurniturefactory.com">info@spfurniturefactory.com</a></li>
+          <li><a href="#">สมุทรปราการ, ประเทศไทย</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 SP Furniture Factory. All rights reserved. · <a href="admin.html" style="color:#555;text-decoration:none;">Admin</a></p>
+      <p>ออกแบบด้วยความภาคภูมิใจในประเทศไทย</p>
+    </div>
+  </footer>
+
+
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+  <!-- Cart Drawer -->
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>🛒 ตะกร้าสินค้า</h3>
+      <button class="cart-close" onclick="closeCart()" aria-label="ปิด">✕</button>
+    </div>
+    <div class="cart-body">
+      <div class="cart-empty" id="cartEmpty">
+        <div class="cart-empty-icon">🛒</div>
+        <p>ยังไม่มีสินค้าในตะกร้า</p>
+        <a href="#products" onclick="closeCart()">ดูสินค้าทั้งหมด →</a>
+      </div>
+      <div id="cartItems"></div>
+    </div>
+        <div class="cart-footer" id="cartFooter" style="display:none;">
+      <div class="cart-summary">
+        <span>จำนวน <strong id="cartTotalItems">0</strong> ชิ้น</span>
+        <strong id="cartTotalPrice">฿0</strong>
+      </div>
+      <button class="btn btn-primary" onclick="goToCheckout()">💳 ชำระเงิน / สั่งซื้อ</button>
+      <button class="btn-clear" onclick="clearCart()">ล้างตะกร้า</button>
+    </div>
+  </div>
+
+
+  <!-- Stock Alert Overlay -->
+  <div class="stock-alert-overlay" id="stockAlertOverlay" onclick="closeStockAlertPanel()"></div>
+
+  <!-- Stock Alert Panel -->
+  <div class="stock-alert-panel" id="stockAlertPanel">
+    <div class="stock-alert-header">
+      <h3>⚠ แจ้งเตือนสต็อก <span class="count-label" id="stockAlertCount"></span></h3>
+      <button class="cart-close" onclick="closeStockAlertPanel()" aria-label="ปิด">✕</button>
+    </div>
+    <div class="stock-alert-body">
+      <div class="stock-alert-empty" id="stockAlertEmpty">สต็อกสินค้าปกติทั้งหมด ✓</div>
+      <div id="stockAlertList"></div>
+    </div>
+    <div class="stock-alert-footer">
+      แจ้งเตือนเมื่อสต็อก ≤ 5 ชิ้น · อัปเดตอัตโนมัติเมื่อมีการขาย
+    </div>
+  </div>
+
+
+  <!-- Floating contact buttons -->
+  <div class="float-contact" id="floatContact">
+    <div class="float-actions" id="floatActions">
+      <a class="float-btn line" id="floatLine" href="#" target="_blank" rel="noopener">
+        <span class="icon">💬</span><span class="label">LINE</span>
+      </a>
+      <a class="float-btn whatsapp" id="floatWa" href="#" target="_blank" rel="noopener">
+        <span class="icon">📱</span><span class="label">WhatsApp</span>
+      </a>
+      <a class="float-btn phone" id="floatPhone" href="tel:021234567">
+        <span class="icon">📞</span><span class="label">02-123-4567</span>
+      </a>
+    </div>
+    <button type="button" class="float-toggle" id="floatToggle" onclick="toggleFloatContact()" aria-label="ติดต่อเรา">+</button>
+  </div>
+
+  
+  <script src="js/auto-status.js"></script>
+  <script src="js/products-data.js"></script>
+  <script src="js/stock.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/extras.js"></script>
+  <script src="js/sidebar.js"></script>
+</body>
+</html>

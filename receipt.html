@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ใบเสร็จรับเงิน | SP Furniture Factory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Orbitron:wght@500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/receipt.css">
+  <link rel="stylesheet" href="css/sidebar.css">
+</head>
+<body>
+
+<button type="button" class="sb-mobile-btn" id="sbMobileBtn" aria-label="เมนู">☰</button>
+<div class="sb-overlay" id="sbOverlay"></div>
+<aside class="app-sidebar" id="appSidebar">
+  <div class="sb-top">
+    <a href="index.html" class="sb-logo">
+      <img src="images/logo.png" alt="SP" onerror="this.style.display='none'">
+      <span>SP Furniture</span>
+    </a>
+    <button type="button" class="sb-toggle" id="sbToggle" title="ย่อเมนู">«</button>
+  </div>
+  <div class="sb-profile">
+    <div class="sb-avatar">👤</div>
+    <div class="sb-profile-info">
+      <strong>ลูกค้าทั่วไป</strong>
+      <small>SP Furniture Factory</small>
+    </div>
+  </div>
+  <div class="sb-search">
+    <input type="search" id="sbSearch" placeholder="ค้นหาสินค้า..." autocomplete="off">
+  </div>
+  <div class="sb-section-label">เมนู</div>
+  <nav class="sb-nav">
+    <a class="sb-link" data-page="index.html" href="index.html"><span class="ico">⌂</span><span class="lbl">หน้าแรก</span></a>
+    <a class="sb-link" data-page="products" href="index.html#products"><span class="ico">▣</span><span class="lbl">ผลิตภัณฑ์</span></a>
+    <a class="sb-link" data-page="about" href="index.html#about"><span class="ico">ⓘ</span><span class="lbl">เกี่ยวกับเรา</span></a>
+    <a class="sb-link" data-page="custom.html" href="custom.html"><span class="ico">⚒</span><span class="lbl">สั่งทำตามแบบ</span></a>
+    <a class="sb-link" data-page="my-orders.html" href="my-orders.html"><span class="ico">☰</span><span class="lbl">รายการสั่งทำของฉัน</span></a>
+    <a class="sb-link" data-page="track.html" href="track.html"><span class="ico">◎</span><span class="lbl">ติดตามออเดอร์</span></a>
+    <a class="sb-link" data-page="contact.html" href="contact.html"><span class="ico">✉</span><span class="lbl">ติดต่อ / ใบเสนอราคา</span></a>
+  </nav>
+  <div class="sb-section-label">ทั่วไป</div>
+  <div class="sb-bottom">
+    <button type="button" class="sb-link" onclick="typeof openCart==='function'&&openCart()">
+      <span class="ico">🛒</span><span class="lbl">ตะกร้าสินค้า</span>
+      <span class="badge" id="sbCartBadge" style="display:none">0</span>
+    </button>
+    <a class="sb-link" href="admin.html"><span class="ico">⚙</span><span class="lbl">แอดมิน</span></a>
+  </div>
+</aside>
+
+  <div class="receipt-toolbar no-print">
+    <a href="index.html" class="tb-btn">← หน้าหลัก</a>
+    <div class="tb-actions">
+      <button class="tb-btn primary" onclick="window.print()">🖨 พิมพ์ใบเสร็จ</button>
+    </div>
+  </div>
+
+  <div class="receipt-page" id="receiptPage">
+    <div class="receipt-loading" id="receiptLoading">กำลังโหลดใบเสร็จ...</div>
+    <div class="receipt-not-found" id="receiptNotFound" style="display:none;">
+      <p>ไม่พบข้อมูลใบเสร็จ</p>
+      <a href="index.html">กลับหน้าหลัก</a>
+    </div>
+
+    <div class="receipt" id="receiptContent" style="display:none;">
+      <!-- Header -->
+      <div class="receipt-header">
+        <img src="images/logo.png" alt="SP Furniture Factory" class="receipt-logo">
+        <div class="receipt-brand">
+          <h1>SP Furniture Factory</h1>
+          <p class="brand-sub">โรงงานผลิตเฟอร์นิเจอร์คุณภาพสูง</p>
+          <p class="brand-contact">
+            สมุทรปราการ, ประเทศไทย<br>
+            Tel: 02-XXX-XXXX &nbsp;|&nbsp; Email: info@spfurniturefactory.com
+          </p>
+        </div>
+      </div>
+
+      <h2 class="receipt-title">ใบเสร็จรับเงิน / Receipt</h2>
+
+      <!-- Meta -->
+      <div class="receipt-meta">
+        <div class="meta-left">
+          <div class="meta-row"><span class="meta-label">เลขที่</span><span id="rOrderId">—</span></div>
+          <div class="meta-row"><span class="meta-label">วันที่</span><span id="rDate">—</span></div>
+          <div class="meta-row"><span class="meta-label">สถานะ</span><span id="rStatus">—</span></div>
+        </div>
+        <div class="meta-right">
+          <div class="meta-row"><span class="meta-label">ชื่อลูกค้า</span><span id="rName">—</span></div>
+          <div class="meta-row"><span class="meta-label">ที่อยู่</span><span id="rAddress">—</span></div>
+          <div class="meta-row"><span class="meta-label">อีเมล</span><span id="rEmail">—</span></div>
+          <div class="meta-row"><span class="meta-label">เบอร์โทรศัพท์</span><span id="rPhone">—</span></div>
+        </div>
+      </div>
+
+      <!-- Items table -->
+      <table class="receipt-table">
+        <thead>
+          <tr>
+            <th class="col-no">ลำดับ</th>
+            <th class="col-item">รายการ</th>
+            <th class="col-qty">จำนวน</th>
+            <th class="col-price">ราคา/หน่วย</th>
+            <th class="col-total">ราคารวม</th>
+          </tr>
+        </thead>
+        <tbody id="rItems">
+        </tbody>
+      </table>
+
+      <!-- Totals -->
+      <div class="receipt-totals">
+        <div class="totals-note">
+          <span class="meta-label">หมายเหตุ</span>
+          <p id="rNote">—</p>
+        </div>
+        <div class="totals-box">
+          <div class="total-row"><span>ราคารวม</span><span id="rSubtotal">0.00</span></div>
+          <div class="total-row"><span>ภาษีมูลค่าเพิ่ม (7%)</span><span id="rTax">0.00</span></div>
+          <div class="total-row"><span>ส่วนลด</span><span id="rDiscount">0.00</span></div>
+          <div class="total-row grand"><span>จำนวนเงินทั้งสิ้น</span><span id="rGrand">0.00</span></div>
+          <div class="total-bahttext" id="rBahtText"></div>
+        </div>
+      </div>
+
+      <!-- Payment method -->
+      <div class="receipt-payment">
+        <div class="pay-title">ชำระเงินโดย</div>
+        <div class="pay-options" id="rPayOptions">
+          <label><span class="chk" data-m="promptpay"></span> พร้อมเพย์</label>
+          <label><span class="chk" data-m="transfer"></span> โอนผ่านบัญชี</label>
+          <label><span class="chk" data-m="card"></span> บัตรเครดิต / เดบิต</label>
+          <label><span class="chk" data-m="cod"></span> เก็บเงินปลายทาง (COD)</label>
+        </div>
+      </div>
+
+      <!-- Signatures -->
+      <div class="receipt-signs">
+        <div class="sign-box">
+          <div class="sign-line"></div>
+          <p>ผู้จ่าย</p>
+          <p class="sign-name" id="rSignCustomer"></p>
+          <p class="sign-date">วันที่ _______________</p>
+        </div>
+        <div class="sign-box">
+          <div class="sign-line"></div>
+          <p>ผู้รับเงิน</p>
+          <p class="sign-name">SP Furniture Factory</p>
+          <p class="sign-date">วันที่ _______________</p>
+        </div>
+      </div>
+
+      <div class="receipt-footer">
+        ขอบคุณที่ใช้บริการ SP Furniture Factory<br>
+        เอกสารนี้ออกโดยระบบอัตโนมัติ
+      </div>
+    </div>
+  </div>
+
+  <script src="js/receipt.js"></script>
+  <script src="js/sidebar.js"></script>
+</body>
+</html>

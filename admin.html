@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>แอดมิน | SP Furniture Factory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&family=Orbitron:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/sidebar.css">
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div id="screenLogin" class="screen-login">
+    <div class="login-box glass">
+      <img src="images/logo.png" alt="SP" class="login-logo" onerror="this.style.display='none'">
+      <h1>SP Admin</h1>
+      <p class="muted">Dashboard · ออเดอร์ · สต็อก</p>
+      <form id="formLogin">
+        <label>รหัสผ่าน</label>
+        <input type="password" id="inputPassword" placeholder="กรอกรหัสผ่าน" autocomplete="current-password">
+        <p id="loginMsg" class="msg-error"></p>
+        <button type="submit" class="btn-primary">เข้าสู่ระบบ</button>
+      </form>
+      <p class="hint">รหัสผ่าน: <strong>admin123</strong></p>
+      <a class="link-back" href="index.html">← กลับหน้าร้าน</a>
+    </div>
+  </div>
+
+  <!-- APP SHELL -->
+  <div id="screenApp" class="app-shell" hidden>
+    <!-- Sidebar -->
+    <aside class="sidebar admin-sidebar-ui" id="adminSidebar">
+      <div class="sb-top">
+        <div class="sb-logo">
+          <img src="images/logo.png" alt="SP" onerror="this.style.display='none'">
+          <span>SP Admin</span>
+        </div>
+        <button type="button" class="sb-toggle" id="adminSbToggle" title="ย่อเมนู">«</button>
+      </div>
+      <div class="sb-profile">
+        <div class="sb-avatar">🛡</div>
+        <div class="sb-profile-info">
+          <strong>ผู้ดูแลระบบ</strong>
+          <small>Furniture Factory</small>
+        </div>
+      </div>
+      <div class="sb-section-label">เมนู</div>
+      <nav class="sidebar-nav sb-nav">
+        <button type="button" class="side-btn sb-link active" data-tab="dash" title="ภาพรวม"><span class="ico">⌂</span><span class="lbl">ภาพรวม</span></button>
+        <button type="button" class="side-btn sb-link" data-tab="orders" title="ออเดอร์"><span class="ico">▣</span><span class="lbl">ออเดอร์</span></button>
+        <button type="button" class="side-btn sb-link" data-tab="quotes" title="ใบเสนอราคา"><span class="ico">✎</span><span class="lbl">ใบเสนอราคา</span></button>
+        <button type="button" class="side-btn sb-link" data-tab="custom" title="สั่งทำตามแบบ"><span class="ico">⚒</span><span class="lbl">สั่งทำตามแบบ</span></button>
+        <button type="button" class="side-btn sb-link" data-tab="stock" title="สต็อก"><span class="ico">▤</span><span class="lbl">สต็อก</span></button>
+      </nav>
+      <div class="sb-section-label">ทั่วไป</div>
+      <div class="sidebar-bottom sb-bottom">
+        <a href="index.html" class="side-btn sb-link" title="หน้าร้าน"><span class="ico">🏪</span><span class="lbl">หน้าร้าน</span></a>
+        <button type="button" id="btnLogout" class="side-btn sb-link danger" title="ออกจากระบบ"><span class="ico">⏻</span><span class="lbl">ออกจากระบบ</span></button>
+      </div>
+    </aside>
+
+    <div class="main-wrap">
+      <header class="main-header">
+        <div>
+          <p class="greet" id="greetText">สวัสดี</p>
+          <h2 class="header-name">SP Furniture Factory</h2>
+        </div>
+        <div class="header-meta">
+          <label class="meta-chip glass auto-toggle" title="เลื่อนสถานะออเดอร์ตามเวลาอัตโนมัติ">
+            <input type="checkbox" id="autoStatusToggle" checked>
+            <span>อัปเดตสถานะอัตโนมัติ</span>
+          </label>
+          <div class="meta-chip glass" id="autoStatusInfo">—</div>
+          <div class="meta-chip glass" id="clockChip">--:--</div>
+          <div class="meta-chip glass" id="dateChip">—</div>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <!-- DASHBOARD -->
+        <section id="tab-dash" class="tab active">
+          <div class="dash-grid">
+            <!-- Hero welcome -->
+            <article class="widget glass span-2 hero-widget">
+              <div class="hero-left">
+                <p class="widget-label">ภาพรวมวันนี้</p>
+                <h3 id="heroTitle">พร้อมดำเนินงาน</h3>
+                <p class="hero-sub" id="heroSub">สรุปออเดอร์และสต็อกแบบเรียลไทม์</p>
+                <div class="sparkline" id="sparkline" aria-hidden="true"></div>
+              </div>
+              <div class="hero-right">
+                <div class="ring-chart" id="ringOrders">
+                  <svg viewBox="0 0 120 120">
+                    <circle class="ring-bg" cx="60" cy="60" r="52"/>
+                    <circle class="ring-fg cyan" cx="60" cy="60" r="52" id="ringOrdersFg"/>
+                  </svg>
+                  <div class="ring-label">
+                    <strong id="ringOrdersPct">0%</strong>
+                    <span>ออเดอร์สำเร็จ</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Revenue -->
+            <article class="widget glass">
+              <p class="widget-label">ยอดขายรวม</p>
+              <p class="big-stat gold" id="cRevenue">฿0</p>
+              <p class="stat-foot" id="cOrdersLine">0 ออเดอร์</p>
+            </article>
+
+            <!-- COD -->
+            <article class="widget glass">
+              <p class="widget-label">รอ COD</p>
+              <p class="big-stat warn" id="cCod">0</p>
+              <p class="stat-foot">เก็บเงินปลายทาง</p>
+            </article>
+
+            <!-- Productivity style stock health -->
+            <article class="widget glass">
+              <p class="widget-label">สุขภาพสต็อก</p>
+              <div class="ring-row">
+                <div class="ring-chart sm">
+                  <svg viewBox="0 0 100 100">
+                    <circle class="ring-bg" cx="50" cy="50" r="40"/>
+                    <circle class="ring-fg violet" cx="50" cy="50" r="40" id="ringStockFg"/>
+                  </svg>
+                  <div class="ring-label">
+                    <strong id="ringStockPct">100%</strong>
+                  </div>
+                </div>
+                <div class="mini-stats">
+                  <div><span>ปกติ</span><strong id="cStockOk">0</strong></div>
+                  <div><span>ต่ำ</span><strong class="warn" id="cStockLow">0</strong></div>
+                  <div><span>หมด</span><strong class="danger" id="cStockOut">0</strong></div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Weekly orders bar chart -->
+            <article class="widget glass span-2">
+              <div class="widget-head">
+                <p class="widget-label">ออเดอร์รายวัน (สัปดาห์นี้)</p>
+                <span class="badge" id="weekTotal">0 ออเดอร์</span>
+              </div>
+              <div class="chart-bars" id="weekBars"></div>
+            </article>
+
+            <!-- Revenue bar chart -->
+            <article class="widget glass span-2">
+              <div class="widget-head">
+                <p class="widget-label">ยอดขายรายวัน</p>
+                <span class="badge gold" id="weekRevenue">฿0</span>
+              </div>
+              <div class="chart-bars revenue" id="revenueBars"></div>
+            </article>
+
+            <!-- Status horizontal bars -->
+            <article class="widget glass span-2">
+              <div class="widget-head">
+                <p class="widget-label">สัดส่วนสถานะออเดอร์</p>
+              </div>
+              <div class="hbar-chart" id="statusBars"></div>
+            </article>
+
+            <!-- Pie: payment methods -->
+            <article class="widget glass">
+              <div class="widget-head">
+                <p class="widget-label">ช่องทางชำระเงิน</p>
+              </div>
+              <div class="pie-wrap">
+                <div class="pie-chart" id="piePayment"></div>
+                <ul class="pie-legend" id="legendPayment"></ul>
+              </div>
+            </article>
+
+            <!-- Pie: stock status -->
+            <article class="widget glass">
+              <div class="widget-head">
+                <p class="widget-label">สัดส่วนสต็อก</p>
+              </div>
+              <div class="pie-wrap">
+                <div class="pie-chart" id="pieStock"></div>
+                <ul class="pie-legend" id="legendStock"></ul>
+              </div>
+            </article>
+
+            <!-- Pie: order status -->
+            <article class="widget glass span-2">
+              <div class="widget-head">
+                <p class="widget-label">สถานะออเดอร์ (วงกลม)</p>
+              </div>
+              <div class="pie-wrap horizontal">
+                <div class="pie-chart lg" id="pieStatus"></div>
+                <ul class="pie-legend" id="legendStatus"></ul>
+              </div>
+            </article>
+
+            <!-- Recent orders / tasks -->
+            <article class="widget glass span-2">
+              <div class="widget-head">
+                <p class="widget-label">ออเดอร์ล่าสุด</p>
+                <button type="button" class="text-btn" data-goto="orders">ดูทั้งหมด</button>
+              </div>
+              <ul class="task-list" id="dashOrders"></ul>
+            </article>
+
+            <!-- Low stock alerts -->
+            <article class="widget glass">
+              <div class="widget-head">
+                <p class="widget-label">แจ้งเตือนสต็อก</p>
+              </div>
+              <ul class="alert-list" id="dashAlerts"></ul>
+            </article>
+
+            <!-- Auto status info -->
+            <article class="widget glass span-2">
+              <div class="widget-head">
+                <p class="widget-label">กฎอัปเดตสถานะอัตโนมัติ</p>
+                <span class="badge" id="autoRulesBadge">เปิดอยู่</span>
+              </div>
+              <div id="autoRulesInfo" class="hbar-chart" style="font-size:0.82rem;color:#8b9bb8;line-height:1.6"></div>
+              <p style="margin-top:0.75rem;font-size:0.78rem;color:#6a7a96">COD และออเดอร์ที่แอดมินล็อกสถานะจะไม่ถูกเลื่อนอัตโนมัติ · ตรวจทุก 30 วินาที</p>
+            </article>
+
+            <!-- System status -->
+            <article class="widget glass">
+              <p class="widget-label">สถานะระบบ</p>
+              <div class="ring-chart sm center">
+                <svg viewBox="0 0 100 100">
+                  <circle class="ring-bg" cx="50" cy="50" r="40"/>
+                  <circle class="ring-fg cyan" cx="50" cy="50" r="40" id="ringSysFg"/>
+                </svg>
+                <div class="ring-label">
+                  <strong id="ringSysPct">100%</strong>
+                  <span>พร้อมใช้</span>
+                </div>
+              </div>
+              <div class="meters">
+                <div class="meter"><span>ออเดอร์</span><div class="track"><i id="mOrders"></i></div></div>
+                <div class="meter"><span>สต็อก</span><div class="track"><i id="mStock"></i></div></div>
+                <div class="meter"><span>COD</span><div class="track"><i id="mCod"></i></div></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ORDERS -->
+        <section id="tab-orders" class="tab">
+          <div class="page-head">
+            <h2>ออเดอร์</h2>
+            <div class="toolbar">
+              <input type="search" id="orderSearch" placeholder="ค้นหาเลขที่ / ชื่อ / เบอร์...">
+              <input type="date" id="orderDateFrom" title="จากวันที่">
+              <input type="date" id="orderDateTo" title="ถึงวันที่">
+              <select id="filterStatus">
+                <option value="all">ทุกสถานะ</option>
+                <option value="paid">ชำระแล้ว</option>
+                <option value="cod_pending">รอ COD</option>
+                <option value="confirmed">ยืนยันแล้ว</option>
+                <option value="production">กำลังผลิต</option>
+                <option value="shipping">จัดส่ง</option>
+                <option value="done">สำเร็จ</option>
+                <option value="cancelled">ยกเลิก</option>
+              </select>
+              <button type="button" id="btnRefreshOrders" class="btn-ghost">รีเฟรช</button>
+              <button type="button" id="btnExportCsv" class="btn-ghost">ส่งออก CSV</button>
+            </div>
+          </div>
+          <div class="widget glass">
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>เลขที่</th><th>ลูกค้า</th><th>รายการ</th><th>ยอด</th><th>ชำระ</th><th>สถานะ</th><th></th>
+                  </tr>
+                </thead>
+                <tbody id="ordersTable"></tbody>
+              </table>
+            </div>
+            <p id="ordersEmpty" class="empty">ยังไม่มีออเดอร์</p>
+          </div>
+        </section>
+
+        <!-- QUOTES -->
+        <section id="tab-quotes" class="tab">
+          <div class="page-head">
+            <h2>คำขอใบเสนอราคา</h2>
+            <div class="toolbar">
+              <select id="filterQuote">
+                <option value="all">ทุกสถานะ</option>
+                <option value="new">ใหม่</option>
+                <option value="contacted">ติดต่อแล้ว</option>
+                <option value="quoted">ส่งใบเสนอแล้ว</option>
+                <option value="closed">ปิด</option>
+              </select>
+              <button type="button" id="btnExportQuotes" class="btn-ghost">ส่งออก CSV</button>
+            </div>
+          </div>
+          <div class="widget glass">
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>เลขที่</th><th>ลูกค้า</th><th>ประเภท</th><th>งบ</th><th>วันที่</th><th>สถานะ</th><th></th>
+                  </tr>
+                </thead>
+                <tbody id="quotesTable"></tbody>
+              </table>
+            </div>
+            <p id="quotesEmpty" class="empty">ยังไม่มีคำขอใบเสนอราคา</p>
+          </div>
+        </section>
+
+
+        <!-- CUSTOM ORDERS -->
+        <section id="tab-custom" class="tab">
+          <div class="page-head">
+            <h2>สั่งทำตามแบบ</h2>
+            <div class="toolbar">
+              <select id="filterCustom">
+                <option value="all">ทุกสถานะ</option>
+                <option value="new">ใหม่</option>
+                <option value="reviewing">กำลังประเมิน</option>
+                <option value="quoted">ส่งราคาแล้ว</option>
+                <option value="confirmed">ลูกค้ายืนยัน</option>
+                <option value="production">กำลังผลิต</option>
+                <option value="done">เสร็จสิ้น</option>
+                <option value="cancelled">ยกเลิก</option>
+              </select>
+              <button type="button" id="btnExportCustom" class="btn-ghost">ส่งออก CSV</button>
+            </div>
+          </div>
+          <div class="widget glass">
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>เลขที่</th><th>ลูกค้า</th><th>ประเภท</th><th>วัสดุ</th><th>จำนวน</th><th>วันที่</th><th>สถานะ</th><th></th>
+                  </tr>
+                </thead>
+                <tbody id="customTable"></tbody>
+              </table>
+            </div>
+            <p id="customEmpty" class="empty">ยังไม่มีคำสั่งทำ</p>
+          </div>
+        </section>
+
+        <!-- STOCK -->
+        <section id="tab-stock" class="tab">
+          <div class="page-head">
+            <h2>สต็อกสินค้า</h2>
+            <div class="toolbar">
+              <input type="search" id="stockSearch" placeholder="ค้นหาสินค้า...">
+              <select id="filterStock">
+                <option value="all">ทั้งหมด</option>
+                <option value="low">สต็อกต่ำ</option>
+                <option value="out">หมดสต็อก</option>
+                <option value="ok">ปกติ</option>
+              </select>
+            </div>
+          </div>
+          <div class="widget glass">
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>สินค้า</th><th>หมวด</th><th>ราคา</th><th>คงเหลือ</th><th>ปรับสต็อก</th>
+                  </tr>
+                </thead>
+                <tbody id="stockTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal" hidden>
+    <div class="modal-box glass">
+      <div class="modal-head">
+        <h3 id="modalTitle">ออเดอร์</h3>
+        <button type="button" id="modalClose" class="icon-btn">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-foot">
+        <label>สถานะ <select id="modalStatus"></select></label>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+          <button type="button" id="modalPrint" class="btn-ghost">พิมพ์ใบสั่งผลิต</button>
+          <button type="button" id="modalSave" class="btn-primary sm">บันทึก</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/auto-status.js"></script>
+  <script src="js/products-data.js"></script>
+  <script src="js/stock.js"></script>
+  <script src="js/custom-order.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
